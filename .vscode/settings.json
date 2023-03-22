@@ -1,0 +1,8 @@
+{
+    "makefileCommandRunner.makefileName": "Makefile",
+    "files.associations": {
+        "cstdlib": "cpp",
+        "iostream": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

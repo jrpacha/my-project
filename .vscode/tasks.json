@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+     "label": "Build & Run",
+     "type": "shell",
+     "command": "make",
+     "args": [
+          "run"
+        ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "make",
+      "args": [
+      ],
+      "group": "build",
+	    "presentation": {
+	  	  "reveal": "always",
+	  	  "panel": "new"
+	    },
+	    "problemMatcher": [
+		    "$gcc"
+      ]
+    },
+    {
+      "label": "Clean", 
+      "type": "shell",
+      "command": "make",
+      "args": [
+          "clean",
+      ],
+      "group": "build", 
+	    "presentation": {
+	  	  "reveal": "always",
+	  	  "panel": "new"
+	    },
+	    "problemMatcher": [
+		    "$gcc"
+      ]
+    },
+    {
+      "label": "Purge (mrproper)",
+      "type": "shell",
+      "command": "make",
+      "args": [
+          "mrproper",
+      ],
+      "group": "build", 
+	    "presentation": {
+	  	  "reveal": "always",
+	  	  "panel": "new"
+	    },
+	    "problemMatcher": [
+		    "$gcc"
+      ]
+    }
+  ]
+}
