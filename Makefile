@@ -35,6 +35,9 @@ HDIR =        include
 OBJDIR=       .o
 DEPDIR=       .d
 
+CC= gcc
+CXX= g++
+
 ifdef OS
     $(shell mkdir $(OBJDIR) 2>NUL:)
     $(shell mkdir $(DEPDIR) 2>NUL:)
@@ -67,6 +70,10 @@ else
         USE.CLEAN="     'make clean', to delete the object and dep files."
         USE.MRPROPER="     'make mrproper', to delete the executable as well."
         ECHO=@echo
+				ifeq ($(shell uname), Darwin)
+					CC= gcc-12
+					CXX= g++-12
+		  	endif
     endif
 endif
 
@@ -81,19 +88,18 @@ SRCS+=$(filter-out %_flymake.f, $(notdir $(basename $(SRCS_ALL))))
 OBJS=$(patsubst %,$(OBJDIR)/%.o,$(SRCS))
 DEPS=$(patsubst %,$(DEPDIR)/%.d,$(SRCS))
 
-CC=            gcc-12
-CCFLAGS=      -g -O0 #-W -fPIC
-CCLIBS=	      #-lm
+CCFLAGS=      -g -O0 -W -fPIC
+CCLIBS=	      -lm
 
-CXX=           g++
-CXXFLAGS=     -g -O0 #-W -PIC
-CXXLIBS=      #-lm
+CXX=           g++-12
+CXXFLAGS=     -g -O0 -W -fPIC
+CXXLIBS=      -lm
 
 FC=            gfortran
 FFLAGS=       -g -O3 -std=legacy -Wall -Wextra -Wconversion
 FFLIBS=
 
-CPPFLAGS+=    -MMD -MP -MF $(DEPDIR)/$*.Td #-cpp
+CPPFLAGS+=    -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
 LDFLAGS=
 
 # Note: -std=legacy.  We use std=legacy to compile fortran 77
