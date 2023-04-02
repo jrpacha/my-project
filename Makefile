@@ -52,7 +52,7 @@ ifdef OS
     USE.MRPROPER='make mrproper', to delete the executable as well.
     ECHO=@echo.
 else 
-    ifeq ($(shell uname), Linux)
+    ifeq ($(filter $(shell uname), "Linux" "Darwin"),)
         $(shell mkdir -p $(OBJDIR) >/dev/null)
         $(shell mkdir -p $(DEPDIR) >/dev/null)
         MV = mv -f
@@ -81,7 +81,7 @@ SRCS+=$(filter-out %_flymake.f, $(notdir $(basename $(SRCS_ALL))))
 OBJS=$(patsubst %,$(OBJDIR)/%.o,$(SRCS))
 DEPS=$(patsubst %,$(DEPDIR)/%.d,$(SRCS))
 
-CC=            gcc
+CC=            gcc-12
 CCFLAGS=      -g -O0 #-W -fPIC
 CCLIBS=	      #-lm
 
@@ -90,10 +90,10 @@ CXXFLAGS=     -g -O0 #-W -PIC
 CXXLIBS=      #-lm
 
 FC=            gfortran
-FFLAGS=       -g -O3 -std=legacy #-Wall -Wextra -Wconversion
+FFLAGS=       -g -O3 -std=legacy -Wall -Wextra -Wconversion
 FFLIBS=
 
-CPPFLAGS+=    -cpp -MMD -MP -MF $(DEPDIR)/$*.Td
+CPPFLAGS+=    -MMD -MP -MF $(DEPDIR)/$*.Td #-cpp
 LDFLAGS=
 
 # Note: -std=legacy.  We use std=legacy to compile fortran 77
