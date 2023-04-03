@@ -6,19 +6,20 @@
 * Put yout include file in **include** directory
 
   * To build the project:
-
-    `~$ make`
-
+    ```bash
+    ~$ make
+    ```
+    This creates a directory with the executable file 
   * To clean the project
-
-    `~$ make clean`
-
+    ```bash
+    ~$ make clean
+    ```
   * To clean the project completely (purge)
+    ```bash
+    ~$ make mrproper
+    ```
 
-    `~$ make mrproper`
-    
 #### Sources ####
-
 I wrote this 'template' to use it in my own projects. It is by no means an original work, for it is based in the following sources:
 
 * http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/ (see references therein)
@@ -29,4 +30,5 @@ So all the credit to these guys!!!
 
 
 Modified 27-03-2023
+
 Modified 02-04-2023
