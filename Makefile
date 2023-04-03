@@ -23,13 +23,15 @@
 # 	~$ cd ~/my_project
 # and run make
 # 	~/my_project $ make 
+# then a directory with the executable file is created.
 # Other actions
 # -- To delete the .o (object) and .d (dependence) files
 # 	~/my_project $ make clean
-# -- To remove .o .d and exec files
+# -- To remove .o .d and the directory witht the executable files
 # 	~/my_project mrproper
 
 PROG=$(notdir $(CURDIR))#name of the project
+EXEDIR=				bin
 SRCDIR=       src
 HDIR =        include
 OBJDIR=       .o
@@ -37,6 +39,19 @@ DEPDIR=       .d
 
 CC= gcc
 CXX= g++
+
+CCFLAGS= -g -O0 -W -fPIC 
+CCLIBS=	#-lm -lgmp -lmpfr 
+
+CXXFLAGS= -g -O0 -W -fPIC
+CXXLIBS= #-lm -lgmp -lmpfr
+
+FC= gfortran
+FFLAGS= -g -O3 -std=legacy -Wall -Wextra -Wconversion
+FFLIBS=
+
+CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
+LDFLAGS=      
 
 ifdef OS
     $(shell mkdir $(OBJDIR) 2>NUL:)
@@ -47,12 +62,12 @@ ifdef OS
     RMFILES = del /Q /F $(OBJDIR)\*.o $(DEPDIR)\*.d 2>NUL
     RMDIR = rd $(OBJDIR) $(DEPDIR) 2>NUL
     RUN=$(PROG)
-    RMEXE= del /Q /F $(PROG) 2>NUL
+    RMEXE= del /Q /F $(EXEDIR) 2>NUL
     USE=Use:
     USE.HELP='make help', to see other options.
-    USE.BUILD='make', to build the executable, $(PROG).
+    USE.BUILD='make', to build the executable, $(EXEDIR)\$(PROG).
     USE.CLEAN='make clean', to delete the object and dep files.
-    USE.MRPROPER='make mrproper', to delete the executable as well.
+    USE.MRPROPER='make mrproper', to delete the directory with the executable as well.
     ECHO=@echo.
 else 
     ifeq ($(filter $(shell uname), "Linux" "Darwin"),)
@@ -63,16 +78,20 @@ else
         RMFILES = $(RM) $(OBJDIR)/*.o $(DEPDIR)/*.d
         RMDIR = rmdir $(OBJDIR) $(DEPDIR)
         RUN= ./$(PROG)
-        RMEXE = rm -f $(PROG)
+        RMEXE = rm -rf $(EXEDIR)
         USE="Use:"
         USE.HELP="      'make help', to see other options."
-        USE.BUILD="     'make', to build the executable, $(PROG)."
+        USE.BUILD="     'make', to build the executable, $(EXEDIR)/$(PROG)."
         USE.CLEAN="     'make clean', to delete the object and dep files."
         USE.MRPROPER="     'make mrproper', to delete the executable as well."
         ECHO=@echo
 				ifeq ($(shell uname), Darwin)
 					CC= gcc-12
 					CXX= g++-12
+				  CCFLAGS+= -I/opt/homebrew/include
+				  CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
+					CXXFLAGS+= -I/opt/homebrew/include
+					CXXLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
 		  	endif
     endif
 endif
@@ -88,28 +107,19 @@ SRCS+=$(filter-out %_flymake.f, $(notdir $(basename $(SRCS_ALL))))
 OBJS=$(patsubst %,$(OBJDIR)/%.o,$(SRCS))
 DEPS=$(patsubst %,$(DEPDIR)/%.d,$(SRCS))
 
-CCFLAGS=      -g -O0 -W -fPIC
-CCLIBS=	      -lm
-
-CXX=           g++-12
-CXXFLAGS=     -g -O0 -W -fPIC
-CXXLIBS=      -lm
-
-FC=            gfortran
-FFLAGS=       -g -O3 -std=legacy -Wall -Wextra -Wconversion
-FFLIBS=
-
-CPPFLAGS+=    -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
-LDFLAGS=
-
 # Note: -std=legacy.  We use std=legacy to compile fortran 77
+#
+all: $(EXEDIR)/$(PROG)
 
-$(PROG): $(OBJS)
-	$(CXX) -o$@ $^ $(LDFLAGS) $(CXXLIBS) $(CCLIBS) $(FFLIBS)
+$(EXEDIR)/$(PROG): $(OBJS)
+	mkdir -p $(EXEDIR)
+	$(CXX) -o $@ $^ $(LDFLAGS) $(CXXLIBS) $(CCLIBS) $(FFLIBS)
 	$(ECHO)
-	$(ECHO) $(USE)
-	$(ECHO)      $(USE.HELP)
+	$(ECHO) 'Executable file, $(PROG), created in directory $(EXEDIR)'
 	$(ECHO)
+#	$(ECHO) $(USE)
+#	$(ECHO)      $(USE.HELP)
+#	$(ECHO)
 
 run: $(PROG)
 	$(RUN)

@@ -1,9 +1,7 @@
 ## Built document
-hello-C
-
 .o
 .d
-
+bin/
 ## Created by AucTeX
 .auctex-auto/
 ## Core latex/pdflatex auxiliary files:
