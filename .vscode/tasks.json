@@ -1,17 +1,29 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkID=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
     "tasks": [
-         {
-            "label": "Build C/C++/fortran active project",
+        {
             "type": "shell",
-            "command": "make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "label": "Build C/C++/fortran active project",
+            "command": "/opt/homebrew/bin/g++-12",
+            "args": [
+                "-g",
+                "-Wall",
+                "-Werror",
+                "-Wextra",
+                "-O0",
+                "${workspaceFolder}/src/*.cc",
+                "-I",
+                "${workspaceFolder}/include",
+                "-o",
+                "${workspaceFolderBasename}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": "$gcc"
-        },
-    ]
+            "group": {
+            "kind": "build",
+            "isDefault": true
+            }
+        }
+    ],
+    "version": "2.0.0"
 }
