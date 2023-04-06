@@ -9,35 +9,35 @@
 # So all the credits go to these guys!!!
 #
 # Use:
+#
+# Create a gtihub project using this template. We shall assume that the
+# project is saved with he name "my-project"
 # 
-# Create a folder to hold your project, for example
-# 		~$ mkdir my_project
-# and copy this makefile there
-#			~$ cp Makefile ~/my_project/
-# In addition, create two subfolders, include 
-#		 	~$ mkdir ~/my_project/include
-# to place your include (.h, .hh) files, and a folder src
-# 		~$ mkdir ~/my_project/src
-# to place your source (.c, .cc, .cpp) files.
+# Clone the repository in a folder of your local machine,
+#   ~$ cd Desktop
+#   ~ Desktop/my-project$ git clone git@github.com:jrpacha/my-project.git
+#   ~ Desktop/my-project$ cd my-project
 #
-# Then, to build you project just cd to the project folder, i.e.,
-# 	~$ cd ~/my_project
-# and run make
-# 	~/my_project~$ make 
-# then a new folder (bin) is created with the executable file 
-# (my_project) inside. To run the executable my_project form the 
-# project folder just do
-# 	~/my_project~$ ./bin/my_project
+# Place your source files in the directory src. For example
+#		~ Desktop/my-project$ ls src
+# 	 main.cc    message.cc
 #
-# Other actions:
+# Place your header files in the directory include. For example,
+#   ~ Desktop/my-project$ ls include
+#   message.hh
+#     
+# Use make to build the program in the directory bin
+#   ~ Desktop/my-project$ make
 #
-# To delete the .o (object) and .d (dependence) files
-# 	~/my_project~$ make clean
-# To remove .o .d and the directory bin witht the executable file
-#	~/my_project~$ make mrproper
-#	To see all the line parameters we can pass to the command make,
-#	call
-#		~/my_project~$ make help
+# You can run the program either with ./bin/my-project or with make run:
+#   ~ Desktop/my-project$ ./bin/my-program
+# or,
+#   ~ Desktop/my-project$ make run
+#
+# Moreover,
+#   ~ Desktop/my-project$ make clean    # delete obj and dep files
+#   ~ Desktop/my-project$ make mrproper # also removes directory bin
+#   ~ make help                         # shows Makefile's flags
 
 PROG=$(notdir $(CURDIR))#name of the project
 EXEDIR=       bin

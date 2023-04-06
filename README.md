@@ -84,8 +84,23 @@ Changes not staged for commit:
         modified:   src/message.cc
 
 no changes added to commit (use "git add" and/or "git commit -a")
+
+~ Desktop/my-project$ git add Makefile README.md src/message.cc
+~ Desktop/my-project$ git commit -m "First commit of my-projecti"
+[master 6f1c52b] First commit of my-project 
+ 3 files changed, 127 insertions(+), 50 deletions(-)
+
+~ Desktop/my-project$ git add Makefile README.md src/message.cc
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
 ``` 
--
+- Finally, push your report to [github.com](https://www.github.com):
+```bash
+
+```
 
 ### References
 - [GNU Make. A program for Directing
