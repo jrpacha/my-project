@@ -99,7 +99,18 @@ nothing to commit, working tree clean
 ``` 
 - Finally, push your report to [github.com](https://www.github.com):
 ```bash
-
+~ Desktop/my-project$ git add Makefile README.md src/message.cc
+Enumerating objects: 15, done.
+Counting objects: 100% (15/15), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 3.35 KiB | 3.35 MiB/s, done.
+Total 10 (delta 6), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (6/6), completed with 3 local objects.
+remote: This repository moved. Please use the new location:
+remote:   git@github.com:jrpacha/my-project.git
+To github.com:jrpacha/hello-C.git
+   0133986..d396cc9  master -> master
 ```
 
 ### References
