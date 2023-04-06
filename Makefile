@@ -49,17 +49,15 @@ DEPDIR=       .d
 CC= gcc
 CXX= g++
 
-CCFLAGS= -g -O0 -W -fPIC 
-CCLIBS=	#-lm -lgmp -lmpfr 
+CCFLAGS+= -g -O0 -W -fPIC 
+CCLIBS+= #-lm -lgmp -lmpfr 
 
-CXXFLAGS= -g -O0 -W -fPIC
-CXXLIBS= #-lm -lgmp -lmpfr
+CXXFLAGS+= -g -O0 -W -fPIC
+CXXLIBS+= #-lm -lgmp -lmpfr
 
 FC= gfortran
 FFLAGS= -g -O3 -std=legacy -Wall -Wextra -Wconversion
 FFLIBS=
-
-CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
 LDFLAGS+=      
 
 ifdef OS
@@ -67,6 +65,7 @@ ifdef OS
     $(shell mkdir $(DEPDIR) 2>NUL:)
 		$(shell mkdir $(EXEDIR) 2>NUL:)
     PROG:=$(PROG).exe
+	CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
     MV = move
     POSTCOMPILE = $(MV) $(DEPDIR)\$*.Td $(DEPDIR)\$*.d 2>NUL
     RMFILES = del /Q /F $(OBJDIR)\*.o $(DEPDIR)\*.d 2>NUL
@@ -96,14 +95,15 @@ else
         USE.CLEAN="     'make clean', to delete the object and dep files."
         USE.MRPROPER="     'make mrproper', to delete the executable as well."
         ECHO=@echo
-				ifeq ($(shell uname), Darwin)
-					CC= gcc-12
-					CXX= g++-12
-				  CCFLAGS+= -I/opt/homebrew/include
-				  CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
-					CXXFLAGS+= -I/opt/homebrew/include
-					CXXLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
-		  	endif
+		ifeq ($(shell uname), Darwin)
+			CC= gcc-12
+			CXX= g++-12
+			CCFLAGS+= -I/opt/homebrew/include
+			CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
+			CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
+			CXXFLAGS+= -I/opt/homebrew/include
+			CXXLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
+	  	endif
     endif
 endif
 
