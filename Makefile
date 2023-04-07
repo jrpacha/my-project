@@ -89,6 +89,7 @@ else
         RMDIR = rmdir $(OBJDIR) $(DEPDIR)
         RUN= ./$(EXEDIR)/$(PROG)
         RMEXE = rm -rf $(EXEDIR)
+		CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td
         USE="Use:"
         USE.HELP="      'make help', to see other options."
         USE.BUILD="     'make', to build the executable, $(EXEDIR)/$(PROG)."
@@ -99,8 +100,7 @@ else
 			CC= gcc-12
 			CXX= g++-12
 			CCFLAGS+= -I/opt/homebrew/include
-			CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
-			CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
+			CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr 
 			CXXFLAGS+= -I/opt/homebrew/include
 			CXXLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
 	  	endif
