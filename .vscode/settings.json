@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/juanr.pacha/gits/my-project/bin",
+            "binaryPath": "/Users/juanr.pacha/gits/my-project/bin/my-project",
+            "binaryArgs": []
+        }
+    ]
+}

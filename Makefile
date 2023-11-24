@@ -65,7 +65,7 @@ ifdef OS
     $(shell mkdir $(DEPDIR) 2>NUL:)
 		$(shell mkdir $(EXEDIR) 2>NUL:)
     PROG:=$(PROG).exe
-	CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
+		CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td 
     MV = move
     POSTCOMPILE = $(MV) $(DEPDIR)\$*.Td $(DEPDIR)\$*.d 2>NUL
     RMFILES = del /Q /F $(OBJDIR)\*.o $(DEPDIR)\*.d 2>NUL
@@ -89,21 +89,21 @@ else
         RMDIR = rmdir $(OBJDIR) $(DEPDIR)
         RUN= ./$(EXEDIR)/$(PROG)
         RMEXE = rm -rf $(EXEDIR)
-		CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td
+				CPPFLAGS+= -cpp -MMD -MP -MF $(DEPDIR)/$*.Td
         USE="Use:"
         USE.HELP="      'make help', to see other options."
         USE.BUILD="     'make', to build the executable, $(EXEDIR)/$(PROG)."
         USE.CLEAN="     'make clean', to delete the object and dep files."
         USE.MRPROPER="     'make mrproper', to delete the executable as well."
         ECHO=@echo
-		ifeq ($(shell uname), Darwin)
-			CC= gcc-12
-			CXX= g++-12
-			CCFLAGS+= -I/opt/homebrew/include
-			CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr 
-			CXXFLAGS+= -I/opt/homebrew/include
-			CXXLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
-	  	endif
+				ifeq ($(shell uname), Darwin)
+					CC= gcc-13
+					CXX= g++-13
+					CCFLAGS+= -I/opt/homebrew/include
+					CCLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr 
+					CXXFLAGS+= -I/opt/homebrew/include
+					#CXXLIBS+= -L/opt/homebrew/lib #-lm -lgmp -lmpfr
+	  		endif
     endif
 endif
 

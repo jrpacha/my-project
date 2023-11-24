@@ -6,7 +6,7 @@
                 "${workspaceFolder}/include/**"
             ],
             "defines": [],
-            "compilerPath": "/opt/homebrew/bin/g++-12",
+            "compilerPath": "/opt/homebrew/bin/g++-13",
             "macFrameworkPath": [
                 "/System/Library/Frameworks",
                 "/Library/Frameworks"
